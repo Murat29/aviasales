@@ -1,0 +1,56 @@
+.input-radio {
+  font-weight: normal;
+  font-style: normal;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+  color: #4a4a4a;
+  width: 100%;
+}
+
+.input-radio__invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.input-radio__visible {
+  background-color: #ffffff;
+  padding: 15px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #dfe5ec;
+  border-bottom: 1px solid #dfe5ec;
+  width: 100%;
+}
+
+.input-radio__invisible_position_left {
+  border-radius: 5px 0 0 5px;
+  border-right: 1px solid #dfe5ec;
+  border-left: 1px solid #dfe5ec;
+}
+
+.input-radio__invisible_position_right {
+  border-radius: 0 5px 5px 0;
+  border-left: 1px solid #dfe5ec;
+  border-right: 1px solid #dfe5ec;
+}
+
+.input-radio__invisible:enabled:hover + .input-radio__visible {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.input-radio__invisible:disabled + .input-radio__visible {
+  opacity: 0.5;
+}
+
+.input-radio__invisible:checked + .input-radio__visible {
+  background-color: #2196f3;
+  color: #ffffff;
+}

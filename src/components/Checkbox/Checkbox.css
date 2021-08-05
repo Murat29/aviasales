@@ -1,0 +1,49 @@
+.checkbox {
+  font-weight: normal;
+  font-style: normal;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  position: relative;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.checkbox:hover {
+  background: #f1fcff;
+}
+
+.checkbox__invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.checkbox__visible {
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #9abbce;
+  box-sizing: border-box;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox__invisible:checked + .checkbox__visible {
+  border-color: #2196f3;
+}
+
+.checkbox__invisible:checked + .checkbox__visible::before {
+  content: '';
+  width: 12px;
+  height: 8px;
+  background: url('../../images/tick.svg') no-repeat center;
+}
