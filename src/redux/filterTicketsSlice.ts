@@ -9,7 +9,7 @@ interface IinitialState {
 
 const initialState: IinitialState = {
   radio: 'cheap',
-  checkboxes: [],
+  checkboxes: checkboxesData.map((el) => el.value),
 };
 
 const filterTicketsSlice = createSlice({
