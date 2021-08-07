@@ -5,16 +5,15 @@ import { Iticket } from '../types/types';
 import api from '../utils/mainApi';
 
 interface IinitialState {
-  tickets: any;
-  // tickets: Iticket;
+  tickets: Iticket[];
 }
 
 const initialState: IinitialState = {
-  tickets: testData,
+  tickets: [],
 };
 
 export const getTickets = createAsyncThunk('/tickets', async () => {
-  let res: Array<object> = [];
+  let res: Iticket[] = [];
   let errorCount: number = 0;
   const { searchId } = await api.getSearchId();
   while (errorCount < 5) {

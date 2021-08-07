@@ -67,9 +67,9 @@ function App() {
     setNumberTickets((old) => old + 5);
   }
 
-  // useEffect(() => {
-  //   dispatch(getTickets());
-  // }, []);
+  useEffect(() => {
+    dispatch(getTickets());
+  }, []);
 
   return (
     <div className="app">
