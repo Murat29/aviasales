@@ -1,40 +1,28 @@
 import React from 'react';
-import { useState } from 'react';
 import InputRadio from '../InputRadio/InputRadio';
-
+import { typefunctionChangeInput, typeRadioValue, IRadioData } from '../../types/types';
+import { radioData } from '../../utils/constants';
 import './Tabs.css';
 
-function Tabs() {
-  const [radioValue, setRadioValue] = useState<string>('cheap');
-
-  function handleRadio(e: React.ChangeEvent<HTMLInputElement>): void {
-    setRadioValue(e.target.value);
-  }
-
+interface ItabsProps {
+  radioValue: typeRadioValue;
+  handleRadio: typefunctionChangeInput;
+}
+const Tabs: React.FC<ItabsProps> = ({ radioValue, handleRadio }) => {
   return (
     <div className="tabs">
-      <InputRadio
-        handleChange={handleRadio}
-        name="cheap"
-        currentValue={radioValue}
-        title="Самый дешевый"
-        position="l"
-      />
-      <InputRadio
-        handleChange={handleRadio}
-        name="quick"
-        currentValue={radioValue}
-        title="Самый быстрый"
-      />
-      <InputRadio
-        handleChange={handleRadio}
-        name="optimal"
-        currentValue={radioValue}
-        title="Оптимальный"
-        position="r"
-      />
+      {radioData.map((data: IRadioData) => (
+        <InputRadio
+          key={data.name}
+          handleChange={handleRadio}
+          name={data.name}
+          currentValue={radioValue}
+          title={data.title}
+          position={data.position}
+        />
+      ))}
     </div>
   );
-}
+};
 
 export default Tabs;

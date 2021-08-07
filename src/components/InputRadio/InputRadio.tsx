@@ -1,15 +1,16 @@
 import React from 'react';
+import { typefunctionChangeInput } from '../../types/types';
 import './InputRadio.css';
 
-interface InputRadioProps {
+interface IinputRadioProps {
   currentValue: string;
   name: string;
-  handleChange: Function;
+  handleChange: typefunctionChangeInput;
   title: string;
   position?: 'l' | 'r';
 }
 
-const InputRadio: React.FC<InputRadioProps> = ({
+const InputRadio: React.FC<IinputRadioProps> = ({
   currentValue,
   handleChange,
   name,
@@ -17,7 +18,7 @@ const InputRadio: React.FC<InputRadioProps> = ({
   position,
 }) => {
   return (
-    <label className={`input-radio`}>
+    <label className="input-radio">
       <input
         onChange={(e) => handleChange(e)}
         checked={currentValue === name}
