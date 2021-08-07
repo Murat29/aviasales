@@ -6,9 +6,9 @@ export function getSortTickets(ticket: Iticket[], radioValue: typeRadioValue): I
       return [...ticket].sort((a: Iticket, b: Iticket) => a.price - b.price);
 
     case 'quick':
-      return [...ticket].sort((a: Iticket, b: Iticket) => {
-        return getTotalDuration(a) - getTotalDuration(b);
-      });
+      return [...ticket].sort(
+        (a: Iticket, b: Iticket) => getTotalDuration(a) - getTotalDuration(b)
+      );
     case 'optimal':
       return [...ticket].sort((a: Iticket, b: Iticket) => {
         const coefficient = 4;

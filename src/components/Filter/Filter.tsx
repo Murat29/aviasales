@@ -1,5 +1,6 @@
 import React from 'react';
 import Checkbox from '../Checkbox/Checkbox';
+import Container from '../Container/Container';
 import { checkboxesData } from '../../utils/constants';
 import { typeCheckedСheckboxes, IoneСheckbox, typefunctionChangeInput } from '../../types/types';
 
@@ -11,17 +12,19 @@ interface ItabsProps {
 }
 const Filter: React.FC<ItabsProps> = ({ checkedСheckboxes, handleСheckbox }) => {
   return (
-    <aside className="filter">
-      <p className="filter__title">Количество пересадок</p>
-      {checkboxesData.map((data: IoneСheckbox) => (
-        <Checkbox
-          key={data.title}
-          handleChange={handleСheckbox}
-          data={data}
-          checkedСheckboxes={checkedСheckboxes}
-        />
-      ))}
-    </aside>
+    <Container>
+      <aside className="filter">
+        <p className="filter__title">Количество пересадок</p>
+        {checkboxesData.map((data: IoneСheckbox) => (
+          <Checkbox
+            key={data.title}
+            handleChange={handleСheckbox}
+            data={data}
+            checkedСheckboxes={checkedСheckboxes}
+          />
+        ))}
+      </aside>
+    </Container>
   );
 };
 

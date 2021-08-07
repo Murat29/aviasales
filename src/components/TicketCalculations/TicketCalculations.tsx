@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import Ticket from '../Ticket/Ticket';
+import Container from '../Container/Container';
 import { getArrivalTime } from '../../utils/getArrivalTime';
 import { getDepartureTime } from '../../utils/getDepartureTime';
 import { getTime } from '../../utils/getTime';
@@ -15,30 +16,25 @@ const TicketCalculations = ({ data: { price, carrier, segments } }: IticketCalcu
     return {
       price: price,
       carrier: carrier,
-      segments: [
-        {
-          origin: segments[0].origin,
-          destination: segments[0].destination,
-          departureTime: getDepartureTime(new Date(segments[0].date)),
-          arrivalTime: getArrivalTime(new Date(segments[0].date), segments[0].duration),
-          stops: segments[0].stops.join(','),
-          transplants: getTransplantsString(segments[0].stops.length),
-          duration: getTime(segments[0].duration),
-        },
-        {
-          origin: segments[1].origin,
-          destination: segments[1].destination,
-          departureTime: getDepartureTime(new Date(segments[1].date)),
-          arrivalTime: getArrivalTime(new Date(segments[1].date), segments[1].duration),
-          stops: segments[1].stops.join(','),
-          transplants: getTransplantsString(segments[1].stops.length),
-          duration: getTime(segments[1].duration),
-        },
-      ],
+      segments: segments.map((data) => {
+        return {
+          origin: data.origin,
+          destination: data.destination,
+          departureTime: getDepartureTime(new Date(data.date)),
+          arrivalTime: getArrivalTime(new Date(data.date), data.duration),
+          stops: data.stops.join(','),
+          transplants: getTransplantsString(data.stops.length),
+          duration: getTime(data.duration),
+        };
+      }),
     };
   }, [carrier, price, segments]);
 
-  return <Ticket data={calculatedData} />;
+  return (
+    <Container>
+      <Ticket data={calculatedData} />
+    </Container>
+  );
 };
 
 export default TicketCalculations;

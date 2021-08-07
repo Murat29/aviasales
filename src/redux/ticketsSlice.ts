@@ -1,17 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import testData from '../utils/testData.json';
+import { Iticket } from '../types/types';
 
 import api from '../utils/mainApi';
 
 interface IinitialState {
   tickets: any;
+  // tickets: Iticket;
 }
 
 const initialState: IinitialState = {
   tickets: testData,
 };
 
-export const getTickets = createAsyncThunk('dsf', async () => {
+export const getTickets = createAsyncThunk('/tickets', async () => {
   let res: Array<object> = [];
   let errorCount: number = 0;
   const { searchId } = await api.getSearchId();
@@ -32,20 +34,7 @@ export const getTickets = createAsyncThunk('dsf', async () => {
 const ticketsSlice = createSlice({
   name: 'filterTickets',
   initialState: initialState,
-  reducers: {
-    // getFilteredTickets(state, action): any {
-    //   const { radioValue, checkedСheckboxes } = action.payload;
-    //   if (state.tickets.length === 0) {
-    //     return state.tickets;
-    //   } else {
-    //     return state.tickets.filter(
-    //       (ticket: any) =>
-    //         checkedСheckboxes.includes(String(ticket.segments[0].stops.length)) &&
-    //         checkedСheckboxes.includes(String(ticket.segments[1].stops.length))
-    //     );
-    //   }
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTickets.fulfilled, (state, action) => {
       state.tickets = action.payload;
@@ -54,4 +43,3 @@ const ticketsSlice = createSlice({
 });
 
 export default ticketsSlice.reducer;
-// export const { getFilteredTickets } = ticketsSlice.actions;

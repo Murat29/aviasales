@@ -22,6 +22,7 @@ class Api {
 
   _getResponseData(data: any) {
     if (!data.ok) {
+      console.log(data.ok);
       return Promise.reject(`Ошибка: ${data.status}`);
     }
     return data.json();
