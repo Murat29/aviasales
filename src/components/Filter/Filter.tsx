@@ -9,12 +9,18 @@ import './Filter.css';
 interface ItabsProps {
   checkedСheckboxes: typeCheckedСheckboxes;
   handleСheckbox: typefunctionChangeInput;
+  handleCheckboxAll: typefunctionChangeInput;
 }
-const Filter: React.FC<ItabsProps> = ({ checkedСheckboxes, handleСheckbox }) => {
+const Filter: React.FC<ItabsProps> = ({ checkedСheckboxes, handleСheckbox, handleCheckboxAll }) => {
   return (
     <Container>
       <aside className="filter">
         <p className="filter__title">Количество пересадок</p>
+        <Checkbox
+          handleChange={handleCheckboxAll}
+          data={{ title: 'Все', value: '-1' }}
+          checkedСheckboxes={checkedСheckboxes}
+        />
         {checkboxesData.map((data: IoneСheckbox) => (
           <Checkbox
             key={data.title}

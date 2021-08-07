@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { typeCheckedСheckboxes, typeRadioValue } from '../types/types';
+import { checkboxesData } from '../utils/constants';
 
 interface IinitialState {
   radio: typeRadioValue;
@@ -19,14 +20,20 @@ const filterTicketsSlice = createSlice({
       state.radio = action.payload;
     },
     markСheckbox(state, action) {
-      console.log(typeof action.payload);
       state.checkboxes.push(action.payload);
     },
     removeСheckbox(state, action) {
       const index = state.checkboxes.indexOf(action.payload);
       state.checkboxes.splice(index, 1);
     },
+    markAllCheckbox(state) {
+      state.checkboxes = checkboxesData.map((el) => el.value);
+    },
+    removeAllСheckbox(state) {
+      state.checkboxes = [];
+    },
   },
 });
 export default filterTicketsSlice.reducer;
-export const { updataRadio, markСheckbox, removeСheckbox } = filterTicketsSlice.actions;
+export const { updataRadio, markСheckbox, removeСheckbox, markAllCheckbox, removeAllСheckbox } =
+  filterTicketsSlice.actions;

@@ -1,7 +1,14 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/rootReducer';
-import { updataRadio, markСheckbox, removeСheckbox } from '../../redux/filterTicketsSlice';
+import {
+  updataRadio,
+  markСheckbox,
+  removeСheckbox,
+  markAllCheckbox,
+  removeAllСheckbox,
+} from '../../redux/filterTicketsSlice';
+import { getTickets } from '../../redux/ticketsSlice';
 import Filter from '../Filter/Filter';
 import Tabs from '../Tabs/Tabs';
 import Header from '../Header/Header';
@@ -9,12 +16,12 @@ import Main from '../Main/Main';
 import Column from '../Column/Column';
 import TicketsList from '../TicketsList/TicketsList';
 import TicketCalculations from '../TicketCalculations/TicketCalculations';
+import Button from '../Button/Button';
 import { getFilterTickets } from '../../utils/getFilterTickets';
 import { getSortTickets } from '../../utils/getSortTickets';
 import { typeRadioValue, typeCheckedСheckboxes, Iticket } from '../../types/types';
-import { getTickets } from '../../redux/ticketsSlice';
+import { checkboxesData } from '../../utils/constants';
 import './App.css';
-import Button from '../Button/Button';
 function App() {
   const tickets: Iticket[] = useSelector((state: RootState) => state.tickets.tickets);
 
@@ -48,6 +55,14 @@ function App() {
     }
   }
 
+  function handleCheckboxAll(e: React.ChangeEvent<HTMLInputElement>): void {
+    if (checkedСheckboxes.length < checkboxesData.length) {
+      dispatch(markAllCheckbox());
+    } else {
+      dispatch(removeAllСheckbox());
+    }
+  }
+
   function increaseNumberTickets() {
     setNumberTickets((old) => old + 5);
   }
@@ -60,7 +75,11 @@ function App() {
     <div className="app">
       <Header />
       <Main>
-        <Filter checkedСheckboxes={checkedСheckboxes} handleСheckbox={handleСheckbox} />
+        <Filter
+          checkedСheckboxes={checkedСheckboxes}
+          handleСheckbox={handleСheckbox}
+          handleCheckboxAll={handleCheckboxAll}
+        />
         <Column>
           <Tabs radioValue={radioValue} handleRadio={handleRadio} />
           <TicketsList>
