@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import testData from '../utils/testData.json';
+import { useDispatch } from 'react-redux';
 import { Iticket } from '../types/types';
+import { showPreloader, hidePreloader } from './preloaderSlice';
 
 import api from '../utils/mainApi';
 
@@ -12,13 +13,15 @@ const initialState: IinitialState = {
   tickets: [],
 };
 
-export const getTickets = createAsyncThunk('/tickets', async () => {
+export const getTickets = createAsyncThunk('/tickets', async (arg, thunkAPI) => {
+  thunkAPI.dispatch(showPreloader());
+
   let res: Iticket[] = [];
   let errorCount: number = 0;
-  const { searchId } = await api.getSearchId();
-  while (errorCount < 5) {
+  const { searchId } = await api.getSearchId().catch((err) => console.log(err));
+  while (errorCount < 7) {
     try {
-      const { tickets, stop } = await api.getPackTickets(searchId);
+      const { tickets, stop } = await api.getPackTickets(searchId).catch((err) => console.log(err));
       res = res.concat(tickets);
       if (stop) {
         break;
@@ -27,6 +30,7 @@ export const getTickets = createAsyncThunk('/tickets', async () => {
       errorCount++;
     }
   }
+  thunkAPI.dispatch(hidePreloader());
   return res;
 });
 

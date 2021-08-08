@@ -22,8 +22,10 @@ import { getSortTickets } from '../../utils/getSortTickets';
 import { typeRadioValue, typeCheckedСheckboxes, Iticket } from '../../types/types';
 import { checkboxesData } from '../../utils/constants';
 import './App.css';
+import Preloader from '../Preloader/Preloader';
 function App() {
   const tickets: Iticket[] = useSelector((state: RootState) => state.tickets.tickets);
+  const isShowPreloader: boolean = useSelector((state: RootState) => state.preloader.isShow);
 
   const radioValue: typeRadioValue = useSelector((state: RootState) => state.filterTickets.radio);
 
@@ -86,8 +88,13 @@ function App() {
             {filteredTickets.map((data: Iticket, i: number) => {
               return <TicketCalculations data={data} key={i} />;
             })}
+            <Preloader isShow={isShowPreloader} />
           </TicketsList>
-          <Button title="Показать еще 5 билетов!" onClick={increaseNumberTickets} />
+          <Button
+            onClick={increaseNumberTickets}
+            isShow={!isShowPreloader}
+            title="Показать еще 5 билетов!"
+          />
         </Column>
       </Main>
     </div>
