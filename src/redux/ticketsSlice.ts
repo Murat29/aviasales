@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
 import { Iticket } from '../types/types';
-import { showPreloader, hidePreloader } from './preloaderSlice';
-
 import api from '../utils/mainApi';
 
 interface IinitialState {
   tickets: Iticket[];
+  isShowPreloader: boolean;
 }
 
 const initialState: IinitialState = {
   tickets: [],
+  isShowPreloader: true,
 };
 
 export const getTickets = createAsyncThunk('/tickets', async (arg, thunkAPI) => {
@@ -30,19 +29,27 @@ export const getTickets = createAsyncThunk('/tickets', async (arg, thunkAPI) => 
       errorCount++;
     }
   }
-  thunkAPI.dispatch(hidePreloader());
   return res;
 });
 
 const ticketsSlice = createSlice({
   name: 'filterTickets',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    showPreloader(state) {
+      state.isShowPreloader = true;
+    },
+    hidePreloader(state) {
+      state.isShowPreloader = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getTickets.fulfilled, (state, action) => {
       state.tickets = action.payload;
+      state.isShowPreloader = false;
     });
   },
 });
 
 export default ticketsSlice.reducer;
+export const { showPreloader, hidePreloader } = ticketsSlice.actions;

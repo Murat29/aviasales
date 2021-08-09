@@ -25,7 +25,7 @@ import './App.css';
 import Preloader from '../Preloader/Preloader';
 function App() {
   const tickets: Iticket[] = useSelector((state: RootState) => state.tickets.tickets);
-  const isShowPreloader: boolean = useSelector((state: RootState) => state.preloader.isShow);
+  const isShowPreloader: boolean = useSelector((state: RootState) => state.tickets.isShowPreloader);
 
   const radioValue: typeRadioValue = useSelector((state: RootState) => state.filterTickets.radio);
 
